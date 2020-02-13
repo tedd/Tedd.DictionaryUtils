@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net461;netstandard2.1;netcoreapp2.1;netcoreapp2.0;netcoreapp2.1;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Tedd Hansen</Authors>
+    <Description>ToDictionarySafe() works like ToDictionary(), but discards duplicates</Description>
+    <Copyright>Tedd Hansen</Copyright>
+    <PackageLicenseFile>README.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/tedd/Tedd.DictionaryUtils</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tedd/Tedd.DictionaryUtils.git</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>ToDictionarySafe ToDictionary</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
