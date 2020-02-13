@@ -6,7 +6,7 @@
     <Authors>Tedd Hansen</Authors>
     <Description>ToDictionarySafe() works like ToDictionary(), but discards duplicates</Description>
     <Copyright>Tedd Hansen</Copyright>
-    <PackageLicenseFile>README.md</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/tedd/Tedd.DictionaryUtils</PackageProjectUrl>
     <RepositoryUrl>https://github.com/tedd/Tedd.DictionaryUtils.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md">
+    <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
