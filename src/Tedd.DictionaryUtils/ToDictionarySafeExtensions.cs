@@ -7,6 +7,8 @@ namespace Tedd
 {
     public static class DictionaryUtilsExtensions
     {
+        #region Public
+        #region KeySelector
         public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
            ToDictionarySafe(source, keySelector, null);
 
@@ -42,33 +44,10 @@ namespace Tedd
 
             return d;
         }
+        #endregion
+        #endregion
 
-        private static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(TSource[] source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
-        {
-            var d = new Dictionary<TKey, TSource>(source.Length, comparer);
-            for (var i = 0; i < source.Length; i++)
-            {
-                var ks = keySelector(source[i]);
-                if (!d.ContainsKey(ks))
-                    d.Add(ks, source[i]);
-            }
-
-            return d;
-        }
-
-        private static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(List<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
-        {
-            var d = new Dictionary<TKey, TSource>(source.Count, comparer);
-            foreach (TSource element in source)
-            {
-                var ks = keySelector(element);
-                if (!d.ContainsKey(ks))
-                    d.Add(ks, element);
-            }
-
-            return d;
-        }
-
+        #region Key and Value selector
         public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
             ToDictionarySafe(source, keySelector, elementSelector, null);
 
@@ -107,7 +86,38 @@ namespace Tedd
 
             return d;
         }
+        #endregion
 
+        #region Private
+        #region Array
+        private static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(TSource[] source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        {
+            var d = new Dictionary<TKey, TSource>(source.Length, comparer);
+            for (var i = 0; i < source.Length; i++)
+            {
+                var ks = keySelector(source[i]);
+                if (!d.ContainsKey(ks))
+                    d.Add(ks, source[i]);
+            }
+
+            return d;
+        }
+
+        private static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(List<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        {
+            var d = new Dictionary<TKey, TSource>(source.Count, comparer);
+            foreach (TSource element in source)
+            {
+                var ks = keySelector(element);
+                if (!d.ContainsKey(ks))
+                    d.Add(ks, element);
+            }
+
+            return d;
+        }
+        #endregion
+
+        #region List
         private static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(TSource[] source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer)
         {
             var d = new Dictionary<TKey, TElement>(source.Length, comparer);
@@ -133,5 +143,7 @@ namespace Tedd
 
             return d;
         }
+        #endregion
+        #endregion
     }
 }
