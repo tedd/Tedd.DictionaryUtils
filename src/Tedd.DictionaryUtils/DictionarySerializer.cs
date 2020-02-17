@@ -12,11 +12,12 @@ namespace Tedd
         public List<Type> DoNotFlattenTypes = new List<Type>();
 
     }
+
     public class DictionarySerializer
     {
         private readonly DictionarySerializerConfig _config;
 
-        private readonly static HashSet<Type> _knownTypes = new HashSet<Type>()
+        internal readonly static HashSet<Type> _knownTypes = new HashSet<Type>()
         {
             // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/types#simple-types
             typeof(sbyte),
@@ -57,6 +58,7 @@ namespace Tedd
                 _doNotFlattenTypes = _config.DoNotFlattenTypes.ToHashSet(s => s);
         }
 
+        #region Flatten
         public Dictionary<string, object> ToFlatDictionary<T>(T @object, FlattenMemberType memberType = FlattenMemberType.Property)
         {
             var dic = new Dictionary<string, object>();
@@ -85,19 +87,17 @@ namespace Tedd
 
             prefix = string.IsNullOrWhiteSpace(prefix) ? "" : prefix + ".";
 
-
-            // TODO: Properties can be cached
-            var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.GetProperty | BindingFlags.Public);
+            var properties = TypeCache.GetProperties(type,BindingFlags.Instance | BindingFlags.GetProperty | BindingFlags.Public);
             foreach (var property in properties)
             {
                 var pt = property.PropertyType;
                 var key = prefix + property.Name;
 
-                var ptil = pt.GetInterfaces();
+                var ptil = TypeCache.GetInterfaces(pt);
 
                 if (_knownTypes.Contains(pt) || _knownTypes.Contains(ptil) // Quick lookup for known types
                     || (_doNotFlattenTypes != null && (_doNotFlattenTypes.Contains(pt) && _doNotFlattenTypes.Contains(ptil)))
-                    || property.GetCustomAttributes(typeof(DoNotFlattenAttribute), true)?.Length > 0 // Or with DoNotFlattenAttribute
+                    || TypeCache.GetDoNotFlattenAttribute(property) // Or with DoNotFlattenAttribute
                       //|| property.PropertyType.GetGenericTypeDefinition()
                 )
                 {
@@ -136,10 +136,10 @@ namespace Tedd
 
                 var val = property.GetValue(@object);
 
-
                 // Go into property
                 ToFlatDictionaryInt(dic, key, val, memberType);
             }
         }
+        #endregion
     }
 }

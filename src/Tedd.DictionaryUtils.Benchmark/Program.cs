@@ -7,8 +7,15 @@ namespace Tedd.DictionaryUtils.Benchmark
     {
         static void Main(string[] args)
         {
-            var test = new ToFlatDictionaryTest();
-            test.FlattenObject();
+            //{
+            //    var test = new Tests.DictionarySerializer();
+            //    test.FlattenObject();
+            //}
+
+            {
+                var test = new Tests.DictionaryDeserializer();
+                test.UnflattenObject();
+            }
         }
     }
 }

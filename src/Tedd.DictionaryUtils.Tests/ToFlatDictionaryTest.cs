@@ -6,14 +6,14 @@ using Xunit;
 
 namespace Tedd.DictionaryUtils.Tests
 {
-    public class ToFlatDictionaryTest
+    public class DictionarySerializer
     {
 
         [Fact]
         public void FlattenObject()
         {
             var customer = new Customer();
-            var flattener = new DictionarySerializer();
+            var flattener = new Tedd.DictionarySerializer();
             var dic = flattener.ToFlatDictionary(customer, FlattenMemberType.Property);
             // DoNotFlatten
             Assert.True(dic.ContainsKey(nameof(customer.CreatedTs)));
