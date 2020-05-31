@@ -7,12 +7,6 @@ using System.Reflection;
 
 namespace Tedd
 {
-    public class DictionarySerializerConfig
-    {
-        public List<Type> DoNotFlattenTypes = new List<Type>();
-
-    }
-
     public class DictionarySerializer
     {
         private readonly DictionarySerializerConfig _config;
