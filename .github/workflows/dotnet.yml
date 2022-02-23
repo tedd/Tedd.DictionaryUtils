@@ -37,7 +37,7 @@ jobs:
     # Publish
     - name: publish on version change
       id: publish_nuget
-      uses: tedd/publish-nuget-neo@v0.0.11
+      uses: tedd/publish-nuget-neo@v0.0.12
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/Tedd.DictionaryUtils/Tedd.DictionaryUtils.csproj
