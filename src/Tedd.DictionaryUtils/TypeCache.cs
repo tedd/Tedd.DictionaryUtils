@@ -1,10 +1,11 @@
-﻿using System;
+﻿#if DESERIALIZER || SERIALIZER
+
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Tedd.DictionaryUtils;
 
-namespace Tedd
-{
+namespace Tedd;
+
     internal static class TypeCache
     {
         private struct TypeBinding : IEquatable<TypeBinding>
@@ -69,4 +70,4 @@ namespace Tedd
                 return TypeInterfaces.GetOrAdd(pt, () => pt.GetInterfaces());
         }
     }
-}
+#endif

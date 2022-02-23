@@ -1,11 +1,12 @@
-﻿using System;
+﻿#if DESERIALIZER
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Tedd
-{
+namespace Tedd;
+
     public class DictionaryDeserializer
     {
         public T UnflattenDictionary<T>(Dictionary<string, object> dictionary)
@@ -75,7 +76,7 @@ namespace Tedd
                         //skey = $"{key}[{num}]";
                     }
                     // Generate array
-                    var array = (object[])Activator.CreateInstance(pt, highestNum+1);
+                    var array = (object[])Activator.CreateInstance(pt, highestNum + 1);
                     property.SetValue(@object, array);
 
                     // Process all sub-elements
@@ -141,4 +142,4 @@ namespace Tedd
             return @object;
         }
     }
-}
+#endif

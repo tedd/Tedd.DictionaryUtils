@@ -13,8 +13,10 @@ namespace Tedd.DictionaryUtils.Benchmark
             //}
 
             {
+#if DESERIALIZER || SERIALIZER
                 var test = new Tests.DictionaryDeserializer();
                 test.UnflattenObject();
+#endif
             }
         }
     }

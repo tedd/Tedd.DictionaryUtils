@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if DESERIALIZER || SERIALIZER
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Net.Http.Headers;
 using System.Text;
@@ -18,3 +19,4 @@ namespace Tedd.DictionaryUtils.Tests.FlattenModels
         public string[] Statuses { get; set; } = {"One", "Two", "Three"};
     }
 }
+#endif

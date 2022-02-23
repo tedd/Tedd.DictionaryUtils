@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <LangVersion>8.0</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Tedd.DictionaryUtils.Tests\Tedd.DictionaryUtils.Tests.csproj" />
-    <ProjectReference Include="..\Tedd.DictionaryUtils\Tedd.DictionaryUtils.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Tedd.DictionaryUtils.Tests\Tedd.DictionaryUtils.Tests.csproj" />
+		<ProjectReference Include="..\Tedd.DictionaryUtils\Tedd.DictionaryUtils.csproj" />
+	</ItemGroup>
 
 </Project>

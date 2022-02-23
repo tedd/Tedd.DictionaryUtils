@@ -1,29 +1,53 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net461;netstandard2.1;netcoreapp2.1;netcoreapp2.0;netcoreapp2.1;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Tedd Hansen</Authors>
-    <Description>ToDictionarySafe() works like ToDictionary(), but discards duplicates</Description>
-    <Copyright>Tedd Hansen</Copyright>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/tedd/Tedd.DictionaryUtils</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/tedd/Tedd.DictionaryUtils.git</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
-    <PackageTags>ToDictionarySafe ToDictionary</PackageTags>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Tedd Hansen</Authors>
+		<Description>Extensions to Dictionary&lt;TKey, TValue&gt;</Description>
+		<Copyright>Tedd Hansen</Copyright>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/tedd/Tedd.DictionaryUtils</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/tedd/Tedd.DictionaryUtils.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>ToDictionarySafe;ToDictionaryList;ToDictionary</PackageTags>
+		<PackageReleaseNotes>Added ToDictionaryList</PackageReleaseNotes>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Tedd.HashSetExtensions" Version="1.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Tedd.HashSetExtensions" Version="1.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
 
 </Project>
