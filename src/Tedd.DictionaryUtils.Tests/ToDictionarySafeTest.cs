@@ -29,7 +29,7 @@ namespace Tedd.DictionaryUtils.Tests
                 if (ob == null)
                     return false;
                 var o = ob.Value;
-                return Key.Equals(o.Key) && Value.Equals(o.Value);
+                return Key!.Equals(o.Key) && Value!.Equals(o.Value);
             }
 
             #endregion
