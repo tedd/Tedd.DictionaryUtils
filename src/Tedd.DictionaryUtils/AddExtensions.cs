@@ -8,8 +8,7 @@ namespace Tedd;
 
 public static class AddExtensions
 {
-    public static TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key,
-        Func<TValue> valueFactory)
+    public static TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key, Func<TValue> valueFactory)
     {
         if (key is null)
             throw new ArgumentNullException(nameof(key));
