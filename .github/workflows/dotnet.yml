@@ -70,7 +70,7 @@ jobs:
         VERSION_STATIC: ${{env.GitBuildVersionSimple}}
         
         # Rebuild project in release mode? You may turn this off if you have built project in previous step. (default: true)
-        REBUILD_PROJECT: false
+        REBUILD_PROJECT: true
         
         # Additional debug output during processing (default: true)
         #DEBUG: true
