@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 
 namespace Tedd;
+
 public static class DictionaryUtilsExtensions
 {
     #region Public
@@ -11,7 +12,7 @@ public static class DictionaryUtilsExtensions
     public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
        ToDictionarySafe(source, keySelector, null);
 
-    public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
+    public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
     {
         if (source == null)
             throw new ArgumentException(nameof(source));
@@ -50,7 +51,7 @@ public static class DictionaryUtilsExtensions
     public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
         ToDictionarySafe(source, keySelector, elementSelector, null);
 
-    public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer)
+    public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
     {
         if (source == null)
             throw new ArgumentException(nameof(source));
