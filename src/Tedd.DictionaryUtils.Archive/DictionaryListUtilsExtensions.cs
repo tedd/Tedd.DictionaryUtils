@@ -52,7 +52,7 @@ public static class DictionaryListUtilsExtensions
 
     #region Key and Value selector
     public static Dictionary<TKey, List<TElement>> ToDictionaryList<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
-        ToDictionaryList(source, keySelector, elementSelector, null);
+        ToDictionaryList(source, keySelector, elementSelector, EqualityComparer<TKey>.Default);
 
     public static Dictionary<TKey, List<TElement>> ToDictionaryList<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer)
     {
