@@ -21,6 +21,8 @@ public static class DictionaryUtilsExtensions
         if (keySelector == null)
             throw new ArgumentException(nameof(keySelector));
 
+        comparer ??= EqualityComparer<TKey>.Default;
+
         var capacity = 0;
         if (source is ICollection<TSource> collection)
         {
