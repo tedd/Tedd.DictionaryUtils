@@ -76,6 +76,8 @@ public static class DictionaryListUtilsExtensions
         if (elementSelector == null)
             throw new ArgumentException(nameof(elementSelector));
 
+        comparer ??= EqualityComparer<TKey>.Default;
+
         var capacity = 0;
         if (source is ICollection<TSource> collection)
         {
