@@ -49,7 +49,7 @@ public static class DictionaryUtilsExtensions
 
     #region Key and Value selector
     public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
-        ToDictionarySafe(source, keySelector, elementSelector, null);
+        ToDictionarySafe(source, keySelector, elementSelector, EqualityComparer<TKey>.Default);
 
     public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer)
     {
