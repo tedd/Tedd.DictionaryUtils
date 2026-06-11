@@ -10,7 +10,7 @@ public static class DictionaryUtilsExtensions
     #region Public
     #region KeySelector
     public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
-       ToDictionarySafe(source, keySelector, null);
+       ToDictionarySafe(source, keySelector, EqualityComparer<TKey>.Default);
 
     public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
     {
