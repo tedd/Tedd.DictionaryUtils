@@ -1,5 +1,5 @@
-﻿using System;
-using Tedd.DictionaryUtils.Tests;
+using BenchmarkDotNet.Running;
+using System;
 
 namespace Tedd.DictionaryUtils.Benchmark
 {
@@ -7,17 +7,7 @@ namespace Tedd.DictionaryUtils.Benchmark
     {
         static void Main(string[] args)
         {
-            //{
-            //    var test = new Tests.DictionarySerializer();
-            //    test.FlattenObject();
-            //}
-
-            {
-#if DESERIALIZER || SERIALIZER
-                var test = new Tests.DictionaryDeserializer();
-                test.UnflattenObject();
-#endif
-            }
+            var summary = BenchmarkRunner.Run<DictionaryListOptimizationBenchmarks>();
         }
     }
 }

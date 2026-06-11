@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-#if NET8_0_OR_GREATER
-using System.Runtime.InteropServices;
-#endif
+using System.Linq;
+using System.Security.Cryptography;
 
-namespace Tedd;
+namespace Tedd.Archive;
 
 public static class DictionaryUtilsExtensions
 {
     #region Public
     #region KeySelector
     public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
-       ToDictionarySafe(source, keySelector, null);
+       ToDictionarySafe(source, keySelector, EqualityComparer<TKey>.Default);
 
-    public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
+    public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
     {
         if (source == null)
             throw new ArgumentException(nameof(source));
 
         if (keySelector == null)
             throw new ArgumentException(nameof(keySelector));
-
-        comparer ??= EqualityComparer<TKey>.Default;
 
         var capacity = 0;
         if (source is ICollection<TSource> collection)
@@ -41,14 +38,8 @@ public static class DictionaryUtilsExtensions
         foreach (var element in source)
         {
             var ks = keySelector(element);
-#if NET8_0_OR_GREATER
-            ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                val = element;
-#else
             if (!d.ContainsKey(ks))
                 d.Add(ks, element);
-#endif
         }
 
         return d;
@@ -58,9 +49,9 @@ public static class DictionaryUtilsExtensions
 
     #region Key and Value selector
     public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
-        ToDictionarySafe(source, keySelector, elementSelector, null);
+        ToDictionarySafe(source, keySelector, elementSelector, EqualityComparer<TKey>.Default);
 
-    public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
+    public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer)
     {
         if (source == null)
             throw new ArgumentException(nameof(source));
@@ -70,8 +61,6 @@ public static class DictionaryUtilsExtensions
 
         if (elementSelector == null)
             throw new ArgumentException(nameof(elementSelector));
-
-        comparer ??= EqualityComparer<TKey>.Default;
 
         var capacity = 0;
         if (source is ICollection<TSource> collection)
@@ -91,14 +80,8 @@ public static class DictionaryUtilsExtensions
         foreach (var element in source)
         {
             var ks = keySelector(element);
-#if NET8_0_OR_GREATER
-            ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                val = elementSelector(element);
-#else
             if (!d.ContainsKey(ks))
                 d.Add(ks, elementSelector(element));
-#endif
         }
 
         return d;
@@ -113,14 +96,8 @@ public static class DictionaryUtilsExtensions
         for (var i = 0; i < source.Length; i++)
         {
             var ks = keySelector(source[i]);
-#if NET8_0_OR_GREATER
-            ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                val = source[i];
-#else
             if (!d.ContainsKey(ks))
                 d.Add(ks, source[i]);
-#endif
         }
 
         return d;
@@ -132,14 +109,8 @@ public static class DictionaryUtilsExtensions
         foreach (TSource element in source)
         {
             var ks = keySelector(element);
-#if NET8_0_OR_GREATER
-            ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                val = element;
-#else
             if (!d.ContainsKey(ks))
                 d.Add(ks, element);
-#endif
         }
 
         return d;
@@ -153,14 +124,8 @@ public static class DictionaryUtilsExtensions
         for (var i = 0; i < source.Length; i++)
         {
             var ks = keySelector(source[i]);
-#if NET8_0_OR_GREATER
-            ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                val = elementSelector(source[i]);
-#else
             if (!d.ContainsKey(ks))
                 d.Add(ks, elementSelector(source[i]));
-#endif
         }
 
         return d;
@@ -172,14 +137,8 @@ public static class DictionaryUtilsExtensions
         foreach (var element in source)
         {
             var ks = keySelector(element);
-#if NET8_0_OR_GREATER
-            ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                val = elementSelector(element);
-#else
             if (!d.ContainsKey(ks))
                 d.Add(ks, elementSelector(element));
-#endif
         }
 
         return d;
