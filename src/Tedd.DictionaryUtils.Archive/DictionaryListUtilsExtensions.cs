@@ -8,7 +8,7 @@ public static class DictionaryListUtilsExtensions
     #region Public
     #region KeySelector
     public static Dictionary<TKey, List<TSource>> ToDictionaryList<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
-        ToDictionaryList(source, keySelector, null);
+        ToDictionaryList(source, keySelector, EqualityComparer<TKey>.Default);
 
     public static Dictionary<TKey, List<TSource>> ToDictionaryList<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
     {
