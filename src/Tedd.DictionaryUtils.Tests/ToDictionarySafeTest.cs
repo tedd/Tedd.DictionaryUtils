@@ -32,6 +32,14 @@ namespace Tedd.DictionaryUtils.Tests
                 return Key!.Equals(o.Key) && Value!.Equals(o.Value);
             }
 
+            public override int GetHashCode()
+            {
+                int hash = 17;
+                hash = hash * 31 + (Key == null ? 0 : Key.GetHashCode());
+                hash = hash * 31 + (Value == null ? 0 : Value.GetHashCode());
+                return hash;
+            }
+
             #endregion
         }
 

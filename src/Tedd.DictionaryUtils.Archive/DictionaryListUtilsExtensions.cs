@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-#if NET8_0_OR_GREATER
-using System.Runtime.InteropServices;
-#endif
 
-namespace Tedd;
+namespace Tedd.Archive;
 
 public static class DictionaryListUtilsExtensions
 {
@@ -13,7 +10,7 @@ public static class DictionaryListUtilsExtensions
     public static Dictionary<TKey, List<TSource>> ToDictionaryList<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
         ToDictionaryList(source, keySelector, null);
 
-    public static Dictionary<TKey, List<TSource>> ToDictionaryList<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
+    public static Dictionary<TKey, List<TSource>> ToDictionaryList<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
     {
         if (source == null)
             throw new ArgumentException(nameof(source));
@@ -39,17 +36,11 @@ public static class DictionaryListUtilsExtensions
         foreach (var element in source)
         {
             var ks = keySelector(element);
-#if NET8_0_OR_GREATER
-            ref var list = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                list = new List<TSource>();
-#else
             if (!d.TryGetValue(ks, out var list))
             {
                 list = new List<TSource>();
                 d.Add(ks, list);
             }
-#endif
             // TODO: Should we avoid dupes?
             list.Add(element);
         }
@@ -63,7 +54,7 @@ public static class DictionaryListUtilsExtensions
     public static Dictionary<TKey, List<TElement>> ToDictionaryList<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
         ToDictionaryList(source, keySelector, elementSelector, null);
 
-    public static Dictionary<TKey, List<TElement>> ToDictionaryList<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
+    public static Dictionary<TKey, List<TElement>> ToDictionaryList<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer)
     {
         if (source == null)
             throw new ArgumentException(nameof(source));
@@ -92,17 +83,11 @@ public static class DictionaryListUtilsExtensions
         foreach (var element in source)
         {
             var ks = keySelector(element);
-#if NET8_0_OR_GREATER
-            ref var list = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                list = new List<TElement>();
-#else
             if (!d.TryGetValue(ks, out var list))
             {
                 list = new List<TElement>();
                 d.Add(ks, list);
             }
-#endif
             // TODO: Should we avoid dupes?
             list.Add(elementSelector(element));
         }
@@ -119,17 +104,11 @@ public static class DictionaryListUtilsExtensions
         for (var i = 0; i < source.Length; i++)
         {
             var ks = keySelector(source[i]);
-#if NET8_0_OR_GREATER
-            ref var list = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                list = new List<TSource>();
-#else
             if (!d.TryGetValue(ks, out var list))
             {
                 list = new List<TSource>();
                 d.Add(ks, list);
             }
-#endif
             // TODO: Should we avoid dupes?
             list.Add(source[i]);
         }
@@ -143,17 +122,11 @@ public static class DictionaryListUtilsExtensions
         foreach (TSource element in source)
         {
             var ks = keySelector(element);
-#if NET8_0_OR_GREATER
-            ref var list = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                list = new List<TSource>();
-#else
             if (!d.TryGetValue(ks, out var list))
             {
                 list = new List<TSource>();
                 d.Add(ks, list);
             }
-#endif
             // TODO: Should we avoid dupes?
             list.Add(element);
         }
@@ -169,17 +142,11 @@ public static class DictionaryListUtilsExtensions
         for (var i = 0; i < source.Length; i++)
         {
             var ks = keySelector(source[i]);
-#if NET8_0_OR_GREATER
-            ref var list = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                list = new List<TElement>();
-#else
             if (!d.TryGetValue(ks, out var list))
             {
                 list = new List<TElement>();
                 d.Add(ks, list);
             }
-#endif
             // TODO: Should we avoid dupes?
             list.Add(elementSelector(source[i]));
         }
@@ -193,17 +160,11 @@ public static class DictionaryListUtilsExtensions
         foreach (var element in source)
         {
             var ks = keySelector(element);
-#if NET8_0_OR_GREATER
-            ref var list = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
-            if (!exists)
-                list = new List<TElement>();
-#else
             if (!d.TryGetValue(ks, out var list))
             {
                 list = new List<TElement>();
                 d.Add(ks, list);
             }
-#endif
             // TODO: Should we avoid dupes?
             list.Add(elementSelector(element));
 
