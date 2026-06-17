@@ -13,7 +13,8 @@ public static class DictionaryListUtilsExtensions
     public static Dictionary<TKey, List<TSource>> ToDictionaryList<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
     {
         if (source == null)
-            throw new ArgumentNullException(nameof(source));
+            throw new ArgumentNullException(nameof(source));
+
 
         if (keySelector == null)
             throw new ArgumentException(nameof(keySelector));
@@ -56,7 +57,7 @@ public static class DictionaryListUtilsExtensions
 
     public static Dictionary<TKey, List<TElement>> ToDictionaryList<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
     {
-        if (source == null)
+            throw new ArgumentNullException(nameof(source));
             throw new ArgumentException(nameof(source));
 
         if (keySelector == null)
