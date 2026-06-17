@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Tedd.DictionaryUtils.Tests
 {
-    public class AddExtensionsTests
+    public class AddExtensionsTest
     {
         [Theory]
         [InlineData("key1", "value1")]
