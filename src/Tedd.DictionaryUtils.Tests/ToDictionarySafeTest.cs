@@ -63,8 +63,8 @@ namespace Tedd.DictionaryUtils.Tests
 
         private void VerifyListsKey(List<KV<string, int>> singleList, Dictionary<string, KV<string, int>> dic)
         {
-            Assert.Equal(dic.Count, singleList.Count);
-            for (var i = 0; i < ListSize; i++)
+            Assert.Equal(singleList.Count, dic.Count);
+            for (var i = 0; i < singleList.Count; i++)
             {
                 var kv = singleList[i];
                 Assert.True(dic.TryGetValue(kv.Key, out var val));
