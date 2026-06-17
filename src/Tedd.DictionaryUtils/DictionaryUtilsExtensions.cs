@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace Tedd;
-
+namespace Tedd;
+
 public static class DictionaryUtilsExtensions
 {
     #region Public
@@ -15,7 +15,7 @@ public static class DictionaryUtilsExtensions
     public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
     {
         if (source == null)
-            throw new ArgumentException(nameof(source));
+            throw new ArgumentNullException(nameof(source));
 
         if (keySelector == null)
             throw new ArgumentException(nameof(keySelector));
