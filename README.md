@@ -80,6 +80,6 @@ string configuration = executionCache.GetOrAdd("DbConnectionString", () =>
 
 ### Object Graph Serialization: `DictionarySerializer` (Pending)
 
-Future iterations of the framework anticipate the integration of comprehensive object graph traversal and flattening capabilities via the `DictionarySerializer`. This infrastructure will recursively unwrap complex generic objects and collections into a strict, unified, scalar-value dictionary (`Dictionary<string, object>`).
+An experimental `DictionarySerializer` implementation (compiled only when the `SERIALIZER` symbol is defined) traverses an object graph and flattens it into a `Dictionary<string, object>`.
 
-*Note: This architectural component is currently gated behind the `SERIALIZER` compilation symbol and remains subject to empirical validation before formal integration into the public API.*
+*Note: This component is not included in the default build and remains subject to validation before being treated as a stable public API.*
