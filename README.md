@@ -12,7 +12,7 @@ The core mechanisms emphasize safe instantiation (bypassing duplicate key except
 
 ### Safe Dictionary Instantiation: `ToDictionarySafe`
 
-The standard `ToDictionary` LINQ method fails non-deterministically when encountering duplicate keys within a dataset. `ToDictionarySafe` ensures stable dictionary initialization by silently mitigating subsequent key collisions. The first identified key-value pair is committed to the resulting structure; subsequent iterations of the same key are explicitly ignored.
+The standard `ToDictionary` LINQ method throws an `ArgumentException` when it encounters duplicate keys. `ToDictionarySafe` instead skips subsequent occurrences of an already-seen key, keeping the first value encountered during enumeration.
 
 ```csharp
 using System.Collections.Generic;
