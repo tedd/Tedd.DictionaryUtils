@@ -63,8 +63,8 @@ namespace Tedd.DictionaryUtils.Tests
 
         private void VerifyListsKey(List<KV<string, int>> singleList, Dictionary<string, KV<string, int>> dic)
         {
-            Assert.Equal(dic.Count, singleList.Count);
-            for (var i = 0; i < ListSize; i++)
+            Assert.Equal(singleList.Count, dic.Count);
+            for (var i = 0; i < singleList.Count; i++)
             {
                 var kv = singleList[i];
                 Assert.True(dic.TryGetValue(kv.Key, out var val));
@@ -73,8 +73,8 @@ namespace Tedd.DictionaryUtils.Tests
         }
         private void VerifyListsKeyValue(List<KV<string, int>> singleList, Dictionary<string, int> dic)
         {
-            Assert.Equal(dic.Count, singleList.Count);
-            for (var i = 0; i < ListSize; i++)
+            Assert.Equal(singleList.Count, dic.Count);
+            for (var i = 0; i < singleList.Count; i++)
             {
                 var kv = singleList[i];
                 Assert.True(dic.TryGetValue(kv.Key, out var val));
@@ -113,7 +113,7 @@ namespace Tedd.DictionaryUtils.Tests
             var dic = dupList.ToDictionarySafe(k => k.Key.ToLowerInvariant(), v => v.Value, StringComparer.OrdinalIgnoreCase);
             VerifyListsKeyValue(singleList, dic);
         }
-        #endregion  
+        #endregion
         #region Array
         [Fact]
         public void ArrayToDictionarySafeKey()
@@ -176,6 +176,63 @@ namespace Tedd.DictionaryUtils.Tests
             SetUpLists(out var singleList, out var dupList);
             var dic = dupList.ToHashSet().ToDictionarySafe(k => k.Key.ToLowerInvariant(), v => v.Value, StringComparer.OrdinalIgnoreCase);
             VerifyListsKeyValue(singleList, dic);
+        }
+        #endregion
+
+        #region Empty Collections
+        [Fact]
+        public void ListToDictionarySafe_Empty()
+        {
+            var empty = new List<KV<string, int>>();
+            var dic1 = empty.ToDictionarySafe(k => k.Key);
+            var dic2 = empty.ToDictionarySafe(k => k.Key, v => v.Value);
+            Assert.Empty(dic1);
+            Assert.Empty(dic2);
+        }
+
+        [Fact]
+        public void ArrayToDictionarySafe_Empty()
+        {
+            var empty = Array.Empty<KV<string, int>>();
+            var dic1 = empty.ToDictionarySafe(k => k.Key);
+            var dic2 = empty.ToDictionarySafe(k => k.Key, v => v.Value);
+            Assert.Empty(dic1);
+            Assert.Empty(dic2);
+        }
+
+        [Fact]
+        public void IEnumerableToDictionarySafe_Empty()
+        {
+            var empty = Enumerable.Empty<KV<string, int>>();
+            var dic1 = empty.ToDictionarySafe(k => k.Key);
+            var dic2 = empty.ToDictionarySafe(k => k.Key, v => v.Value);
+            Assert.Empty(dic1);
+            Assert.Empty(dic2);
+        }
+        #endregion
+
+        #region Null Arguments
+        [Fact]
+        public void ToDictionarySafe_NullSource_Throws()
+        {
+            List<KV<string, int>> nullList = null!;
+            Assert.Throws<ArgumentException>(() => nullList.ToDictionarySafe(k => k.Key));
+            Assert.Throws<ArgumentException>(() => nullList.ToDictionarySafe(k => k.Key, v => v.Value));
+        }
+
+        [Fact]
+        public void ToDictionarySafe_NullKeySelector_Throws()
+        {
+            var list = new List<KV<string, int>>();
+            Assert.Throws<ArgumentException>(() => list.ToDictionarySafe<KV<string, int>, string>(null!));
+            Assert.Throws<ArgumentException>(() => list.ToDictionarySafe<KV<string, int>, string, int>(null!, v => v.Value));
+        }
+
+        [Fact]
+        public void ToDictionarySafe_NullElementSelector_Throws()
+        {
+            var list = new List<KV<string, int>>();
+            Assert.Throws<ArgumentException>(() => list.ToDictionarySafe(k => k.Key, (Func<KV<string, int>, int>)null!));
         }
         #endregion
 
