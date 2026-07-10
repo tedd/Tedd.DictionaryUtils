@@ -6,6 +6,12 @@ A rigorous architectural framework providing advanced operational primitives and
 
 This library is engineered to mitigate fundamental data structure initialization anomalies and operational friction when manipulating high-volume collections in .NET applications. It achieves this by extending the standard `IEnumerable<T>` and `Dictionary<TKey, TValue>` types with deterministic, robust execution pathways for data aggregation and dictionary population.
 
+### Architectural Execution Flow
+
+1. **State Initialization:** The framework analyzes the incoming `IEnumerable<T>` dataset to predict optimal capacity requirements. If the source materializes as an `ICollection<T>`, the underlying dictionary is initialized with an exact pre-allocated capacity, mitigating dynamic reallocation friction.
+2. **Deterministic Aggregation Pathway:** The data is linearly traversed. For .NET 8.0+ targets, the framework leverages advanced runtime capabilities via `CollectionsMarshal.GetValueRefOrAddDefault`. This provides a high-performance, zero-allocation memory-safe execution path that mutates dictionary state via reference (`ref`), entirely bypassing redundant key hashing and allocation overhead during duplicate detection or state initialization. For legacy targets, it utilizes standardized `ContainsKey` and `TryGetValue` patterns.
+3. **State Resolution:** The materialized `Dictionary<TKey, TValue>` (or `Dictionary<TKey, List<TValue>>`) is finalized and returned, ensuring deterministic resolution of duplicated keys or aggregated hierarchical structures.
+
 The core mechanisms emphasize safe instantiation (bypassing duplicate key exceptions), transparent collection-based aggregation, and streamlined data retrieval paradigms.
 
 ## Operational Capabilities (Established)
