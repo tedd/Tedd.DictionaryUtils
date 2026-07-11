@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 #if NET8_0_OR_GREATER
 using System.Runtime.InteropServices;
@@ -16,10 +16,10 @@ public static class DictionaryUtilsExtensions
     public static Dictionary<TKey, TSource> ToDictionarySafe<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
     {
         if (source == null)
-            throw new ArgumentException(nameof(source));
+            throw new ArgumentNullException(nameof(source));
 
         if (keySelector == null)
-            throw new ArgumentException(nameof(keySelector));
+            throw new ArgumentNullException(nameof(keySelector));
 
         comparer ??= EqualityComparer<TKey>.Default;
 
@@ -42,7 +42,9 @@ public static class DictionaryUtilsExtensions
         {
             var ks = keySelector(element);
 #if NET8_0_OR_GREATER
+#pragma warning disable CS8714
             ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
+#pragma warning restore CS8714
             if (!exists)
                 val = element;
 #else
@@ -63,13 +65,13 @@ public static class DictionaryUtilsExtensions
     public static Dictionary<TKey, TElement> ToDictionarySafe<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
     {
         if (source == null)
-            throw new ArgumentException(nameof(source));
+            throw new ArgumentNullException(nameof(source));
 
         if (keySelector == null)
-            throw new ArgumentException(nameof(keySelector));
+            throw new ArgumentNullException(nameof(keySelector));
 
         if (elementSelector == null)
-            throw new ArgumentException(nameof(elementSelector));
+            throw new ArgumentNullException(nameof(elementSelector));
 
         comparer ??= EqualityComparer<TKey>.Default;
 
@@ -92,7 +94,9 @@ public static class DictionaryUtilsExtensions
         {
             var ks = keySelector(element);
 #if NET8_0_OR_GREATER
+#pragma warning disable CS8714
             ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
+#pragma warning restore CS8714
             if (!exists)
                 val = elementSelector(element);
 #else
@@ -114,7 +118,9 @@ public static class DictionaryUtilsExtensions
         {
             var ks = keySelector(source[i]);
 #if NET8_0_OR_GREATER
+#pragma warning disable CS8714
             ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
+#pragma warning restore CS8714
             if (!exists)
                 val = source[i];
 #else
@@ -133,7 +139,9 @@ public static class DictionaryUtilsExtensions
         {
             var ks = keySelector(element);
 #if NET8_0_OR_GREATER
+#pragma warning disable CS8714
             ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
+#pragma warning restore CS8714
             if (!exists)
                 val = element;
 #else
@@ -154,7 +162,9 @@ public static class DictionaryUtilsExtensions
         {
             var ks = keySelector(source[i]);
 #if NET8_0_OR_GREATER
+#pragma warning disable CS8714
             ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
+#pragma warning restore CS8714
             if (!exists)
                 val = elementSelector(source[i]);
 #else
@@ -173,7 +183,9 @@ public static class DictionaryUtilsExtensions
         {
             var ks = keySelector(element);
 #if NET8_0_OR_GREATER
+#pragma warning disable CS8714
             ref var val = ref CollectionsMarshal.GetValueRefOrAddDefault(d, ks, out bool exists);
+#pragma warning restore CS8714
             if (!exists)
                 val = elementSelector(element);
 #else

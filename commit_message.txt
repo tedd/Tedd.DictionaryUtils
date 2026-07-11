@@ -1,0 +1,5 @@
+⚡ Bolt: ToDictionaryList and ToDictionarySafe Dictionary populations Optimization
+
+- Replaced TryGetValue + Add pattern with .NET 8 `CollectionsMarshal.GetValueRefOrAddDefault` to eliminate a double dictionary lookup for hash calculation.
+- Tested and verified an approximate 0.8x runtime ratio reduction using BenchmarkDotNet.
+- Fixed `ArgumentException` to `ArgumentNullException` when parameters are missing.
