@@ -216,23 +216,23 @@ namespace Tedd.DictionaryUtils.Tests
         public void ToDictionarySafe_NullSource_Throws()
         {
             List<KV<string, int>> nullList = null!;
-            Assert.Throws<ArgumentException>(() => nullList.ToDictionarySafe(k => k.Key));
-            Assert.Throws<ArgumentException>(() => nullList.ToDictionarySafe(k => k.Key, v => v.Value));
+            Assert.Throws<ArgumentNullException>(() => nullList.ToDictionarySafe(k => k.Key));
+            Assert.Throws<ArgumentNullException>(() => nullList.ToDictionarySafe(k => k.Key, v => v.Value));
         }
 
         [Fact]
         public void ToDictionarySafe_NullKeySelector_Throws()
         {
             var list = new List<KV<string, int>>();
-            Assert.Throws<ArgumentException>(() => list.ToDictionarySafe<KV<string, int>, string>(null!));
-            Assert.Throws<ArgumentException>(() => list.ToDictionarySafe<KV<string, int>, string, int>(null!, v => v.Value));
+            Assert.Throws<ArgumentNullException>(() => list.ToDictionarySafe<KV<string, int>, string>(null!));
+            Assert.Throws<ArgumentNullException>(() => list.ToDictionarySafe<KV<string, int>, string, int>(null!, v => v.Value));
         }
 
         [Fact]
         public void ToDictionarySafe_NullElementSelector_Throws()
         {
             var list = new List<KV<string, int>>();
-            Assert.Throws<ArgumentException>(() => list.ToDictionarySafe(k => k.Key, (Func<KV<string, int>, int>)null!));
+            Assert.Throws<ArgumentNullException>(() => list.ToDictionarySafe(k => k.Key, (Func<KV<string, int>, int>)null!));
         }
         #endregion
 

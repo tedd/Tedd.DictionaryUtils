@@ -229,21 +229,21 @@ namespace Tedd.DictionaryUtils.Tests
         public void ToDictionaryList_NullSource_Throws()
         {
             List<Item> nullList = null!;
-            Assert.Throws<ArgumentException>(() => nullList.ToDictionaryList(i => i.Category));
-            Assert.Throws<ArgumentException>(() => nullList.ToDictionaryList(i => i.Category, i => i.Name));
+            Assert.Throws<ArgumentNullException>(() => nullList.ToDictionaryList(i => i.Category));
+            Assert.Throws<ArgumentNullException>(() => nullList.ToDictionaryList(i => i.Category, i => i.Name));
         }
 
         [Fact]
         public void ToDictionaryList_NullKeySelector_Throws()
         {
-            Assert.Throws<ArgumentException>(() => _testItems.ToDictionaryList<Item, string>(null!));
-            Assert.Throws<ArgumentException>(() => _testItems.ToDictionaryList<Item, string, string>(null!, i => i.Name));
+            Assert.Throws<ArgumentNullException>(() => _testItems.ToDictionaryList<Item, string>(null!));
+            Assert.Throws<ArgumentNullException>(() => _testItems.ToDictionaryList<Item, string, string>(null!, i => i.Name));
         }
 
         [Fact]
         public void ToDictionaryList_NullElementSelector_Throws()
         {
-            Assert.Throws<ArgumentException>(() => _testItems.ToDictionaryList(i => i.Category, (Func<Item, string>)null!));
+            Assert.Throws<ArgumentNullException>(() => _testItems.ToDictionaryList(i => i.Category, (Func<Item, string>)null!));
         }
     }
 }
