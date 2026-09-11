@@ -1,5 +1,4 @@
 using BenchmarkDotNet.Running;
-using System;
 
 namespace Tedd.DictionaryUtils.Benchmark
 {
@@ -7,7 +6,7 @@ namespace Tedd.DictionaryUtils.Benchmark
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<DictionaryListOptimizationBenchmarks>();
+            BenchmarkRunner.Run<GetOrAddOptimizationBenchmarks>();
         }
     }
 }
