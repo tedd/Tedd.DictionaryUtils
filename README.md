@@ -7,6 +7,7 @@ A rigorous architectural framework providing advanced operational primitives and
 This library is engineered to mitigate fundamental data structure initialization anomalies and operational friction when manipulating high-volume collections in .NET applications. It achieves this by extending the standard `IEnumerable<T>` and `Dictionary<TKey, TValue>` types with deterministic, robust execution pathways for data aggregation and dictionary population.
 
 The core mechanisms emphasize safe instantiation (bypassing duplicate key exceptions), transparent collection-based aggregation, and streamlined data retrieval paradigms.
+Under .NET 8.0 and subsequent iterations, the framework seamlessly utilizes `CollectionsMarshal.GetValueRefOrAddDefault` to eliminate double-hashing friction, facilitating zero-allocation, single-pass lookup and insertion for unparalleled operational efficiency.
 
 ## Operational Capabilities (Established)
 
